@@ -4,8 +4,9 @@ import * as THREE from "three"
 const scene = new THREE.Scene()
 const offsetMarginTop = parseInt(window.getComputedStyle(document.body).getPropertyValue('margin-top'))*2
 const offsetMarginSide = parseInt(window.getComputedStyle(document.body).getPropertyValue('margin-left'))*2
-console.log(offsetMarginSide)
-console.log(offsetMarginTop)
+
+// Raycaster
+const raycaster = new THREE.Raycaster()
 
 // Perspective Camera Args: FOV, Aspect Ratio, Close Clipping Plane, Far Clipping Plane
 const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1 ,1000)  
@@ -19,6 +20,12 @@ renderer.setClearColor(0x2AAA8A, 1);
 // Inserts the renderer's DOM into body as a an HTML canvas
 document.body.appendChild(renderer.domElement)
 
+
+
+//------------------------------//
+// ****** RENDER OBJECTS ****** //
+//------------------------------//
+
 // Box is the geometry, Material is the material, BoxMesh is the mesh that combines both
 const box = new THREE.BoxGeometry(1.5, 1.5, 1.5)
 const phongMaterial = new THREE.MeshPhongMaterial({
@@ -30,10 +37,11 @@ const boxMesh = new THREE.Mesh(box, phongMaterial)
 // Plane object
 const plane = new THREE.PlaneGeometry(30, 20, 60, 40)
 const planeMaterial = new THREE.MeshPhongMaterial({
-  shininess: 0,
+  shininess: 10,
   color: 0x99bbff,
-  side: THREE.DoubleSide,
-  flatShading: true
+  side: THREE.BackSide,
+  flatShading: true,
+  alphaTest: 0.1,
 })
 const planeMesh = new THREE.Mesh(plane, planeMaterial)
 planeMesh.rotation.x = 90
@@ -53,34 +61,60 @@ light.position.set(0, 2, 2)
 const light2 = new THREE.DirectionalLight(0xFFFFFF, 0.5)
 light2.position.set(0, -2, 0)
 
+const light3 = new THREE.DirectionalLight(0xFFFFFF, 0.75)
+light3.position.set(0, 0, 1)
+
 // Adding stuff to the scene
 scene.add(boxMesh)
 scene.add(planeMesh)
 scene.add(light)
 scene.add(light2)
+// scene.add(light3)
 
 // Push camera back so we can see the cube
 camera.position.z = 5
 
+
+//-------------------------------//
+// ****** EVENT LISTENERS ****** //
+//-------------------------------//
+
+// Make renderer sizable
+window.addEventListener('resize', onWindowResize, false);
+function onWindowResize(){
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop);
+}
+
+// Set mouse dictionary to have normalized coord of mouse
+let mouse = {
+  x: 0,
+  y: 0,
+}
+window.addEventListener("mousemove", (event)=>{
+  mouse.x = (event.clientX / innerWidth) * 2 - 1
+  mouse.y = -(event.clientY / innerHeight) * 2 + 1
+})
+
+
+//------------------------------//
+// ******** ANIMATIONS ******** //
+//------------------------------//
+
 // Define animation function for the box, runs recursively
-function boxAnimate(){
-  requestAnimationFrame(boxAnimate)
+function animate(){
+  requestAnimationFrame(animate)
   renderer.render(scene, camera)
   boxMesh.rotation.x += 0.01
   boxMesh.rotation.y += 0.01
-}
 
+  raycaster.setFromCamera(mouse, camera)
+  let intersections = raycaster.intersectObjects(mouse)
+
+}
 // Calling animation functions
-boxAnimate()
-
-// Make renderer sizable
-window.addEventListener( 'resize', onWindowResize, false );
-function onWindowResize(){
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop);
-}
-
+animate()
 
 // Console logs
 console.log(scene)
