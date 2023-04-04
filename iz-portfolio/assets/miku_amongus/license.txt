@@ -1,0 +1,11 @@
+Model Information:
+* title:	miku amongus
+* source:	https://sketchfab.com/3d-models/miku-amongus-5a6253916afe46cdb1841ad513a90e00
+* author:	DemonFawwn (https://sketchfab.com/demonfawwn)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "miku amongus" (https://sketchfab.com/3d-models/miku-amongus-5a6253916afe46cdb1841ad513a90e00) by DemonFawwn (https://sketchfab.com/demonfawwn) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
