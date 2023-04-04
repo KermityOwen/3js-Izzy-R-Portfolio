@@ -117,7 +117,7 @@ let mouse = {
 
 function dragAction(deltaX, deltaY, object) {
   object.rotation.y += deltaX / 100;
-  // object.rotation.x += deltaY / 100;
+  object.rotation.x += deltaY / 1000;
 }
 
 window.addEventListener('mousemove', (event) => {
