@@ -1,5 +1,6 @@
 import * as THREE from "three"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import gsap from "gsap"
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // Construct scene and margins
@@ -9,7 +10,7 @@ const offsetMarginSide = parseInt(window.getComputedStyle(document.body).getProp
 
 // Raycaster
 const raycaster = new THREE.Raycaster()
-
+console.log(raycaster)
 // Loader
 const loader = new GLTFLoader()
 
@@ -21,6 +22,7 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop)
 renderer.setPixelRatio(devicePixelRatio)
 renderer.setClearColor(0x2AAAAA, 1);
+// renderer.setClearColor(0x000000, 1);
 
 // Inserts the renderer's DOM into body as a an HTML canvas
 document.body.appendChild(renderer.domElement)
@@ -33,18 +35,24 @@ document.body.appendChild(renderer.domElement)
 //------------------------------//
 
 // Box is the geometry, Material is the material, BoxMesh is the mesh that combines both
-const box = new THREE.BoxGeometry(1.5, 1.5, 1.5)
+const hbox = new THREE.BoxGeometry(1, 1, 1)
 const phongMaterial = new THREE.MeshPhongMaterial({
   shininess: 80
 })
 phongMaterial.color.set( 0xFF0000 )
-const boxMesh = new THREE.Mesh(box, phongMaterial)
+const hboxMesh1 = new THREE.Mesh(hbox, phongMaterial)
+const hboxMesh2 = new THREE.Mesh(hbox, phongMaterial)
+const hboxMesh3 = new THREE.Mesh(hbox, phongMaterial)
+const hboxMesh4 = new THREE.Mesh(hbox, phongMaterial)
 
 // Plane object
-const plane = new THREE.PlaneGeometry(30, 20, 60, 40)
+const wideness = innerWidth/300
+const plane = new THREE.PlaneGeometry(60, 20, 120, 40)
+// const plane = new THREE.PlaneGeometry(100, 100, 1000, 1000)
 const planeMaterial = new THREE.MeshPhongMaterial({
   shininess: 10,
-  color: 0x99bbff,
+  // color: 0x99bbff,
+  color: 0x66BB66,
   side: THREE.BackSide,
   flatShading: true,
   alphaTest: 0.1,
@@ -60,10 +68,10 @@ for (let i = 0; i < array.length; i+=3){
   array[i+2] = z_seg + Math.random()/2
 }
 
-let mikuModel = new THREE.Mesh(box, phongMaterial)
-// MIKU-MONGUS????
-loader.load( 'assets/miku_amongus/scene.gltf', function (gltf) {
-  gltf.scene.scale.set(1, 1, 1)
+let mikuModel = new THREE.Mesh(hbox, phongMaterial) // Better than intializing as undefined
+loader.load( 'assets/miku_amongus/scene.gltf', function (gltf) { // MIKU-MONGUS????
+  var scaleValue = Math.log(innerWidth)/8
+  gltf.scene.scale.set(scaleValue, scaleValue, scaleValue)
   gltf.scene.position.x = 0
   gltf.scene.position.y = -1.5
   gltf.scene.position.z = 0
@@ -83,14 +91,30 @@ const light2 = new THREE.DirectionalLight(0xFFFFFF, 0.5)
 light2.position.set(0, -2, 0)
 
 // Adding stuff to the scene
-// scene.add(boxMesh)
 scene.add(planeMesh)
+
+// Relative positioning bish hehheheh
+// hboxMesh1.position.set(innerWidth*0.002,-2,1)
+// hboxMesh2.position.set(-innerWidth*0.002,-2,1)
+// hboxMesh3.position.set(innerWidth*0.0045,-2,-2)
+// hboxMesh4.position.set(-innerWidth*0.0045,-2,-2)
+hboxMesh1.position.set(innerWidth*0.002,0,innerWidth*0.002)
+hboxMesh2.position.set(-innerWidth*0.002,0,innerWidth*0.002)
+hboxMesh3.position.set(innerWidth*0.002,0,-innerWidth*0.002)
+hboxMesh4.position.set(-innerWidth*0.002,0,-innerWidth*0.002)
+var orbit = new THREE.Group()
+orbit.add(hboxMesh1)
+orbit.add(hboxMesh2)
+orbit.add(hboxMesh3)
+orbit.add(hboxMesh4)
+
+scene.add(orbit)
 scene.add(light)
 scene.add(light2)
-
 // Push camera back so we can see the cube
-camera.position.z = 5
+camera.position.z = 7
 
+// planeMesh.updateMatrixWorld()
 
 //-------------------------------//
 // ****** EVENT LISTENERS ****** //
@@ -102,6 +126,13 @@ function onWindowResize(){
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop);
+  hboxMesh1.position.set(innerWidth*0.002,0,innerWidth*0.002)
+  hboxMesh2.position.set(-innerWidth*0.002,0,innerWidth*0.002)
+  hboxMesh3.position.set(innerWidth*0.002,0,-innerWidth*0.002)
+  hboxMesh4.position.set(-innerWidth*0.002,0,-innerWidth*0.002)
+
+  var scaleValue = Math.log(innerWidth)/8
+  mikuModel.scale.set(scaleValue, scaleValue, scaleValue)
 }
 
 // Set mouse dictionary to have normalized coord of mouse
@@ -110,17 +141,18 @@ let mouse = {
   x: 0,
   y: 0,
 }
-// window.addEventListener("mousemove", (event) => {
-//   mouse.x = (event.clientX / innerWidth) * 2 - 1
-//   mouse.y = -(event.clientY / innerHeight) * 2 + 1
-// })
+
+const pointer = new THREE.Vector2()
 
 function dragAction(deltaX, deltaY, object) {
-  object.rotation.y += deltaX / 100;
+  object.rotation.y += deltaX / 100; // Larger the divided number is the slower the movement
   object.rotation.x += deltaY / 1000;
 }
 
 window.addEventListener('mousemove', (event) => {
+  pointer.x = (event.clientX/innerWidth) * 2 - 1
+  pointer.y = -(event.clientY/innerHeight) * 2 + 1
+  // console.log(pointer)
   if (!mouse.down) {
     return
   }
@@ -129,7 +161,7 @@ window.addEventListener('mousemove', (event) => {
   var deltaY = event.clientY - mouse.y
   mouse.x = event.clientX
   mouse.y = event.clientY
-  dragAction(deltaX, deltaY, mikuModel)
+  dragAction(deltaX, 0, orbit)
 }, false)
 
 window.addEventListener('mousedown', (event) => {
@@ -137,6 +169,9 @@ event.preventDefault()
 mouse.down = true
 mouse.x = event.clientX
 mouse.y = event.clientY
+if (currentHover){
+  console.log(prevHB)
+}
 }, false)
 
 window.addEventListener('mouseup', (event) => {
@@ -148,18 +183,43 @@ mouse.down = false
 // ******** ANIMATIONS ******** //
 //------------------------------//
 
+var prevHB = hboxMesh1
+var currentHover = false
 // Define animation function for the box, runs recursively
 function animate(){
   requestAnimationFrame(animate)
   renderer.render(scene, camera)
   // boxMesh.rotation.x += 0.01
   // boxMesh.rotation.y += 0.01
-  mikuModel.rotation.y += 0.01
 
-  raycaster.setFromCamera(mouse, camera)
-  let intersections = raycaster.intersectObjects(mouse)
+  mikuModel.rotation.y += 0.008
+  orbit.rotation.y += 0.0025
 
+  raycaster.setFromCamera(pointer, camera)
+  // const intersects = raycaster.intersectObjects(scene.children)
+  const hitboxes = [hboxMesh1, hboxMesh2, hboxMesh3, hboxMesh4]
+  const intersect = raycaster.intersectObjects(hitboxes)
+
+  if (intersect.length != 0){
+    currentHover = true
+    var obj = intersect[0].object
+    obj.material = new THREE.MeshPhongMaterial({
+      shininess: 80,
+      color: 0x00FF00,
+    })
+    if(prevHB != obj){
+      prevHB.material = phongMaterial
+    }
+    prevHB = obj
+  }
+  else {
+    currentHover=false
+    prevHB.material = phongMaterial
+  }  
+
+  // console.log(currentHover)
 }
+
 // Calling animation functions
 animate()
 
@@ -167,4 +227,3 @@ animate()
 console.log(scene)
 console.log(camera)
 console.log(renderer)
-console.log(box)
