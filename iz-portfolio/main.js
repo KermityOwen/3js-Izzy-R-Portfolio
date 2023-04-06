@@ -94,14 +94,12 @@ light2.position.set(0, -2, 0)
 scene.add(planeMesh)
 
 // Relative positioning bish hehheheh
-// hboxMesh1.position.set(innerWidth*0.002,-2,1)
-// hboxMesh2.position.set(-innerWidth*0.002,-2,1)
-// hboxMesh3.position.set(innerWidth*0.0045,-2,-2)
-// hboxMesh4.position.set(-innerWidth*0.0045,-2,-2)
-hboxMesh1.position.set(innerWidth*0.002,0,innerWidth*0.002)
-hboxMesh2.position.set(-innerWidth*0.002,0,innerWidth*0.002)
-hboxMesh3.position.set(innerWidth*0.002,0,-innerWidth*0.002)
-hboxMesh4.position.set(-innerWidth*0.002,0,-innerWidth*0.002)
+var HBLogScale = Math.log(innerWidth)/3
+hboxMesh1.position.set(HBLogScale,0,HBLogScale)
+hboxMesh2.position.set(-HBLogScale,0,HBLogScale)
+hboxMesh3.position.set(HBLogScale,0,-HBLogScale)
+hboxMesh4.position.set(-HBLogScale,0,-HBLogScale)
+
 var orbit = new THREE.Group()
 orbit.add(hboxMesh1)
 orbit.add(hboxMesh2)
