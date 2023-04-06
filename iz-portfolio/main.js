@@ -94,11 +94,11 @@ light2.position.set(0, -2, 0)
 scene.add(planeMesh)
 
 // Relative positioning bish hehheheh
-var HBLogScale = Math.log(innerWidth)/3
-hboxMesh1.position.set(HBLogScale,0,HBLogScale)
-hboxMesh2.position.set(-HBLogScale,0,HBLogScale)
-hboxMesh3.position.set(HBLogScale,0,-HBLogScale)
-hboxMesh4.position.set(-HBLogScale,0,-HBLogScale)
+var HBScale = innerWidth*0.001+1
+hboxMesh1.position.set(HBScale,0,HBScale)
+hboxMesh2.position.set(-HBScale,0,HBScale)
+hboxMesh3.position.set(HBScale,0,-HBScale)
+hboxMesh4.position.set(-HBScale,0,-HBScale)
 
 var orbit = new THREE.Group()
 orbit.add(hboxMesh1)
@@ -124,11 +124,11 @@ function onWindowResize(){
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop);
-  var HBLogScale = Math.log(innerWidth)/3
-  hboxMesh1.position.set(HBLogScale,0,HBLogScale)
-  hboxMesh2.position.set(-HBLogScale,0,HBLogScale)
-  hboxMesh3.position.set(HBLogScale,0,-HBLogScale)
-  hboxMesh4.position.set(-HBLogScale,0,-HBLogScale)
+  var HBScale = innerWidth*0.001+1
+  hboxMesh1.position.set(HBScale,0,HBScale)
+  hboxMesh2.position.set(-HBScale,0,HBScale)
+  hboxMesh3.position.set(HBScale,0,-HBScale)
+  hboxMesh4.position.set(-HBScale,0,-HBScale)
 
   var scaleValue = Math.log(innerWidth)/8
   mikuModel.scale.set(scaleValue, scaleValue, scaleValue)
