@@ -126,10 +126,11 @@ function onWindowResize(){
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop);
-  hboxMesh1.position.set(innerWidth*0.002,0,innerWidth*0.002)
-  hboxMesh2.position.set(-innerWidth*0.002,0,innerWidth*0.002)
-  hboxMesh3.position.set(innerWidth*0.002,0,-innerWidth*0.002)
-  hboxMesh4.position.set(-innerWidth*0.002,0,-innerWidth*0.002)
+  var HBLogScale = Math.log(innerWidth)/3
+  hboxMesh1.position.set(HBLogScale,0,HBLogScale)
+  hboxMesh2.position.set(-HBLogScale,0,HBLogScale)
+  hboxMesh3.position.set(HBLogScale,0,-HBLogScale)
+  hboxMesh4.position.set(-HBLogScale,0,-HBLogScale)
 
   var scaleValue = Math.log(innerWidth)/8
   mikuModel.scale.set(scaleValue, scaleValue, scaleValue)
