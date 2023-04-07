@@ -99,6 +99,10 @@ hboxMesh1.position.set(HBScale,0,HBScale)
 hboxMesh2.position.set(-HBScale,0,HBScale)
 hboxMesh3.position.set(HBScale,0,-HBScale)
 hboxMesh4.position.set(-HBScale,0,-HBScale)
+hboxMesh1.name = "hb1"
+hboxMesh2.name = "hb2"
+hboxMesh3.name = "hb3"
+hboxMesh4.name = "hb4"
 
 var orbit = new THREE.Group()
 orbit.add(hboxMesh1)
@@ -201,18 +205,41 @@ function animate(){
   const intersect = raycaster.intersectObjects(hitboxes)
 
   if (intersect.length != 0){
+    console.log(intersect[0].object)
     currentHover = true
     var obj = intersect[0].object
     obj.material = new THREE.MeshPhongMaterial({
       shininess: 80,
       color: 0x00FF00,
     })
+    
     if(prevHB != obj){
       prevHB.material = phongMaterial
     }
     prevHB = obj
+    switch (obj.name){
+      case("hb1"):
+        document.getElementById("prompt").innerHTML = "About Me"
+        document.getElementById("subtext").innerHTML = "."
+        break
+      case("hb2"):
+        document.getElementById("prompt").innerHTML = "My Works"
+        document.getElementById("subtext").innerHTML = "."
+        break
+      case("hb3"):
+        document.getElementById("prompt").innerHTML = "Contact Me"
+        document.getElementById("subtext").innerHTML = "."
+        break
+      case("hb4"):
+        document.getElementById("prompt").innerHTML = "Credits"
+        document.getElementById("subtext").innerHTML = "."
+        break
+    }
+    
   }
   else {
+    document.getElementById("prompt").innerHTML = "YO bitches it's Izzy R"
+    document.getElementById("subtext").innerHTML = "The R stands for ratlover"
     currentHover=false
     prevHB.material = phongMaterial
   }  
