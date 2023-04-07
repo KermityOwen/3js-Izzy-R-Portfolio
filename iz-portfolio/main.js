@@ -148,7 +148,7 @@ function dragAction(deltaX, deltaY, object) {
   object.rotation.x += deltaY / 1000;
 }
 
-window.addEventListener('mousemove', (event) => {
+window.addEventListener('pointermove', (event) => {
   pointer.x = (event.clientX/innerWidth) * 2 - 1
   pointer.y = -(event.clientY/innerHeight) * 2 + 1
   // console.log(pointer)
@@ -163,17 +163,18 @@ window.addEventListener('mousemove', (event) => {
   dragAction(deltaX, 0, orbit)
 }, false)
 
-window.addEventListener('mousedown', (event) => {
+window.addEventListener('pointerdown', (event) => {
 event.preventDefault()
 mouse.down = true
 mouse.x = event.clientX
 mouse.y = event.clientY
 if (currentHover){
   console.log(prevHB)
+  window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
 }
 }, false)
 
-window.addEventListener('mouseup', (event) => {
+window.addEventListener('pointerup', (event) => {
 event.preventDefault()
 mouse.down = false
 }, false)
