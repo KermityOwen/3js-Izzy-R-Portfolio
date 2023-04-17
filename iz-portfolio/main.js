@@ -110,7 +110,7 @@ const light2 = new THREE.DirectionalLight(0xFFFFFF, 0.5)
 light2.position.set(0, -2, 0)
 
 // Adding stuff to the scene
-scene.add(planeMesh)
+// scene.add(planeMesh)
 
 // Relative positioning bish hehheheh
 var HBScale = innerWidth*0.001+1
