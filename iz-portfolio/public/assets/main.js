@@ -30,11 +30,6 @@ renderer.setClearColor(0x224030, 1);
 // Inserts the renderer's DOM into body as a an HTML canvas
 document.body.appendChild(renderer.domElement)
 
-const textureLoader = new THREE.TextureLoader()
-textureLoader.load('assets/camobg.png', function(texture){
-  scene.background = texture
-})
-
 // let controls = new OrbitControls(camera, renderer.domElement)
 
 
