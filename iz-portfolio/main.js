@@ -12,7 +12,8 @@ const offsetMarginSide = parseInt(window.getComputedStyle(document.body).getProp
 const raycaster = new THREE.Raycaster()
 console.log(raycaster)
 // Loader
-const loader = new GLTFLoader()
+const loadingManager = new THREE.LoadingManager()
+const loader = new GLTFLoader(loadingManager)
 
 // Perspective Camera Args: FOV, Aspect Ratio, Close Clipping Plane, Far Clipping Plane
 const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1 ,1000)  
@@ -33,6 +34,21 @@ document.body.appendChild(renderer.domElement)
 //------------------------------//
 // ****** RENDER OBJECTS ****** //
 //------------------------------//
+
+// Loading manager stuff
+const loadBar = document.getElementById("progress-bar")
+loadingManager.onProgress = function(url, loaded, total){
+  loadBar.value = (loaded/total) * 100
+}
+
+const loadScreen = document.querySelector(".loading-screen")
+const mainScreen = document.querySelector(".main")
+loadingManager.onLoad = function(){
+  mainScreen.style.display = "inline"
+  loadScreen.style.display = "none"
+
+}
+
 
 // Box is the geometry, Material is the material, BoxMesh is the mesh that combines both
 const hbox = new THREE.BoxGeometry(1, 1, 1)
@@ -68,15 +84,16 @@ for (let i = 0; i < array.length; i+=3){
   array[i+2] = z_seg + Math.random()/2
 }
 
-let mikuModel = new THREE.Mesh(hbox, phongMaterial) // Better than intializing as undefined
-loader.load( 'assets/miku_amongus/scene.gltf', function (gltf) { // MIKU-MONGUS????
-  var scaleValue = Math.log(innerWidth)/8
+let bugModel = new THREE.Mesh(hbox, phongMaterial) // Better than intializing as undefined
+// loader.load( 'assets/miku_amongus/scene.gltf', function (gltf) { // MIKU-MONGUS????
+loader.load( 'assets/Bug_Lowpoly.gltf', function (gltf) { 
+  var scaleValue = Math.log(innerWidth)/12
   gltf.scene.scale.set(scaleValue, scaleValue, scaleValue)
   gltf.scene.position.x = 0
-  gltf.scene.position.y = -1.5
+  gltf.scene.position.y = -0.2
   gltf.scene.position.z = 0
-  mikuModel = gltf.scene
-	scene.add(mikuModel)
+  bugModel = gltf.scene
+	scene.add(bugModel)
 }, undefined, (error) => {
 	console.error(error);
 } );
@@ -109,12 +126,14 @@ orbit.add(hboxMesh1)
 orbit.add(hboxMesh2)
 orbit.add(hboxMesh3)
 orbit.add(hboxMesh4)
+orbit.rotation.x += 0.3
 
 scene.add(orbit)
 scene.add(light)
 scene.add(light2)
 // Push camera back so we can see the cube
 camera.position.z = 7
+camera.position.y = -0.3
 
 // planeMesh.updateMatrixWorld()
 
@@ -134,8 +153,8 @@ function onWindowResize(){
   hboxMesh3.position.set(HBScale,0,-HBScale)
   hboxMesh4.position.set(-HBScale,0,-HBScale)
 
-  var scaleValue = Math.log(innerWidth)/8
-  mikuModel.scale.set(scaleValue, scaleValue, scaleValue)
+  var scaleValue = Math.log(innerWidth)/12
+  bugModel.scale.set(scaleValue, scaleValue, scaleValue)
 }
 
 // Set mouse dictionary to have normalized coord of mouse
@@ -196,8 +215,14 @@ function animate(){
   // boxMesh.rotation.x += 0.01
   // boxMesh.rotation.y += 0.01
 
-  mikuModel.rotation.y += 0.008
+  bugModel.rotation.y += 0.008
   orbit.rotation.y += 0.0025
+  
+  // Can let client decide if they want this feature
+  hboxMesh1.lookAt(camera.position)
+  hboxMesh2.lookAt(camera.position)
+  hboxMesh3.lookAt(camera.position)
+  hboxMesh4.lookAt(camera.position)
 
   raycaster.setFromCamera(pointer, camera)
   // const intersects = raycaster.intersectObjects(scene.children)
@@ -238,8 +263,8 @@ function animate(){
     
   }
   else {
-    document.getElementById("prompt").innerHTML = "YO bitches it's Izzy R"
-    document.getElementById("subtext").innerHTML = "The R stands for ratlover"
+    document.getElementById("prompt").innerHTML = "Izzy Reghenzani"
+    document.getElementById("subtext").innerHTML = "3D Creature Artist"
     currentHover=false
     prevHB.material = phongMaterial
   }  
