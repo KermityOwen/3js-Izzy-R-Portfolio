@@ -48,6 +48,9 @@
         /* Starts off on none and changes when loaded */
         display: none; 
       }
+      #logo{
+        margin-right: 15px;
+      }
       .title{
         position: absolute;
         color: #dddddd;
@@ -55,6 +58,8 @@
         top:20%;
         left:50%;
         transform:translate(-50%, -50%);
+        display: flex;
+        flex-direction: row;
       }
       #prompt{
         font-family: TitleFont;
@@ -81,9 +86,11 @@
 
     <div class="main">
       <div class="title">
-        <!-- <img src="assets/icon/"> -->
-        <h1 id="prompt"> Izzy Reghenzani </h1>
-        <p id="subtext"> 3D Creature Artist / Texturing / Look Dev </p>
+        <img id="logo" src="assets/Final_Logo.svg" width="60px" >
+        <div>
+          <h1 id="prompt"> Izzy Reghenzani </h1>
+          <p id="subtext"> 3D Creature Artist / Texturing / Look Dev </p>
+        </div>
       </div>
     </div>
     

@@ -92,7 +92,7 @@ loader.load( 'assets/Bug_Lowpoly.gltf', function (gltf) {
   var scaleValue = Math.log(innerWidth)/12
   gltf.scene.scale.set(scaleValue, scaleValue, scaleValue)
   gltf.scene.position.x = 0
-  gltf.scene.position.y = -0.2
+  gltf.scene.position.y = -0.5
   gltf.scene.position.z = 0
   bugModel = gltf.scene
 	scene.add(bugModel)
@@ -129,6 +129,7 @@ orbit.add(hboxMesh2)
 orbit.add(hboxMesh3)
 orbit.add(hboxMesh4)
 orbit.rotation.x += 0.3
+orbit.position.y -= 0.5
 
 scene.add(orbit)
 scene.add(light)
@@ -136,6 +137,9 @@ scene.add(light2)
 // Push camera back so we can see the cube
 camera.position.z = 7
 camera.position.y = -0.3
+
+// orbit.position.y -= 1
+
 
 // planeMesh.updateMatrixWorld()
 
@@ -244,27 +248,34 @@ function animate(){
       prevHB.material = phongMaterial
     }
     prevHB = obj
+
+    // references to getElementById doesnt change the html itself so it has to be called on case
     switch (obj.name){
       case("hb1"):
+        document.getElementById("logo").style.display = "none"
         document.getElementById("prompt").innerHTML = "About Me"
-        document.getElementById("subtext").innerHTML = "."
+        document.getElementById("subtext").innerHTML = `&#128516 - Learn more about me - &#128516`
         break
       case("hb2"):
+        document.getElementById("logo").style.display = "none"
         document.getElementById("prompt").innerHTML = "My Works"
-        document.getElementById("subtext").innerHTML = "."
+        document.getElementById("subtext").innerHTML = "&#128396 - Look at my work - &#128396"
         break
       case("hb3"):
+        document.getElementById("logo").style.display = "none"
         document.getElementById("prompt").innerHTML = "Contact Me"
-        document.getElementById("subtext").innerHTML = "."
+        document.getElementById("subtext").innerHTML = "&#128231; - Here's how to contact me - &#128231;"
         break
       case("hb4"):
+        document.getElementById("logo").style.display = "none"
         document.getElementById("prompt").innerHTML = "Credits"
-        document.getElementById("subtext").innerHTML = "."
+        document.getElementById("subtext").innerHTML = "For the assets used in this website"
         break
     }
     
   }
   else {
+    document.getElementById("logo").style.display = "inline"
     document.getElementById("prompt").innerHTML = "Izzy Reghenzani"
     document.getElementById("subtext").innerHTML = "3D Creature Artist - Texturing - Look Dev"
     currentHover=false
