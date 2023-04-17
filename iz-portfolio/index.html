@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Iz-Portfolio</title>
     <style>
+      @font-face {
+        font-family: TitleFont;
+        src: url(assets/LT-Funk.otf);
+      }
       html{
         overflow: hidden;
       }
@@ -38,7 +42,7 @@
       label{
         color: rgb(255,255,255);
         font-size: 2rem;
-
+        font-family: TitleFont;
       }
       .main{
         /* Starts off on none and changes when loaded */
@@ -48,14 +52,19 @@
         position: absolute;
         color: #dddddd;
         text-align: center;
-        top:30%;
+        top:20%;
         left:50%;
         transform:translate(-50%, -50%);
       }
       #prompt{
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: TitleFont;
         font-size: 400%;
         text-shadow: 2px 2px black;
+        margin-bottom: 4px;
+      }
+      #subtext{
+        font-family: TitleFont;
+        font-size: 100%;
       }
     </style>
     <script type="module" src="/main.js"></script>
@@ -74,7 +83,7 @@
       <div class="title">
         <!-- <img src="assets/icon/"> -->
         <h1 id="prompt"> Izzy Reghenzani </h1>
-        <p id="subtext"> 3D Creature Artist </p>
+        <p id="subtext"> 3D Creature Artist / Texturing / Look Dev </p>
       </div>
     </div>
     

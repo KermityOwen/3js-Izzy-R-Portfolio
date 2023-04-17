@@ -11,6 +11,7 @@ const offsetMarginSide = parseInt(window.getComputedStyle(document.body).getProp
 // Raycaster
 const raycaster = new THREE.Raycaster()
 console.log(raycaster)
+
 // Loader
 const loadingManager = new THREE.LoadingManager()
 const loader = new GLTFLoader(loadingManager)
@@ -22,7 +23,8 @@ const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1 ,1000
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(innerWidth-offsetMarginSide, innerHeight-offsetMarginTop)
 renderer.setPixelRatio(devicePixelRatio)
-renderer.setClearColor(0x2AAAAA, 1);
+// renderer.setClearColor(0x2AAAAA, 1);
+renderer.setClearColor(0x224030, 1);
 // renderer.setClearColor(0x000000, 1);
 
 // Inserts the renderer's DOM into body as a an HTML canvas
@@ -264,7 +266,7 @@ function animate(){
   }
   else {
     document.getElementById("prompt").innerHTML = "Izzy Reghenzani"
-    document.getElementById("subtext").innerHTML = "3D Creature Artist"
+    document.getElementById("subtext").innerHTML = "3D Creature Artist - Texturing - Look Dev"
     currentHover=false
     prevHB.material = phongMaterial
   }  
