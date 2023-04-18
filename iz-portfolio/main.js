@@ -206,15 +206,19 @@ if (currentHover){
   switch (prevHB.name){
     case("hb1"):
       console.log("hitbox1")
+      window.location.href = "/about/"
       break
     case("hb2"):
       console.log("hitbox2")
+      window.location.href = "/works/"
       break
     case("hb3"):
       console.log("hitbox3")
+      window.location.href = "/contact/"
       break
     case("hb4"):
       console.log("hitbox4")
+      window.location.href = "/credits/"
       break
   }
   // console.log(prevHB)
