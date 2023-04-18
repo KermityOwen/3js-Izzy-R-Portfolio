@@ -203,8 +203,22 @@ mouse.down = true
 mouse.x = event.clientX
 mouse.y = event.clientY
 if (currentHover){
-  console.log(prevHB)
-  window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+  switch (prevHB.name){
+    case("hb1"):
+      console.log("hitbox1")
+      break
+    case("hb2"):
+      console.log("hitbox2")
+      break
+    case("hb3"):
+      console.log("hitbox3")
+      break
+    case("hb4"):
+      console.log("hitbox4")
+      break
+  }
+  // console.log(prevHB)
+  // window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
 }
 }, false)
 
@@ -241,7 +255,7 @@ function animate(){
   const intersect = raycaster.intersectObjects(hitboxes)
 
   if (intersect.length != 0){
-    console.log(intersect[0].object)
+    // console.log(intersect[0].object)
     currentHover = true
     var obj = intersect[0].object
     obj.material = new THREE.MeshPhongMaterial({
