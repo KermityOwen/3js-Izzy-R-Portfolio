@@ -3,6 +3,7 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/rat.webp" />
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Lato&display=swap' rel='stylesheet'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
         @font-face {
@@ -17,10 +18,8 @@
             overflow: hidden;
         }
         .main{
-            margin-top: 20px;
             display: flex;
             flex-direction: row;
-            justify-content: center;
         }
         .texts{
             display: flex;
@@ -33,32 +32,49 @@
             min-width: 200px;
             height: auto;
         }
-        .brief{
-            margin:5%;
-        }
         .title{
             font-family: TitleFont;
         }
+        .icon{
+            transition: all .2s ease-in-out;
+        }
         ul {
-            list-style-type: none;
             margin: 0;
+            margin-left: 10px;
+            margin-right: 10px;
+            list-style-type: none;
             padding: 0;
             overflow: hidden;
-            background-color: #333;
+            height: 13%;
         }
         li {
-            float: left;
+            float: right;
+            vertical-align: middle;
+            height: 100%;
+            width: auto;
         }
         li a {
+            margin:0;
             display: block;
-            color: white;
+            color: black;
             text-align: center;
-            padding: 14px 16px;
+            padding-left: 2vw;
+            padding-right: 2vw;
+            padding-top: 2.5vh;
+            font-family: "Lato";
+            /* Number is apparently calculated for perfect design according to some designer lol */
+            font-size: calc(13px + 0.5vw);
             text-decoration: none;
+            transition: all .2s ease-in-out;
+        }
+        li a:hover{
+            transform: scale(1.1);
+            color: white;
         }
         /* Change the link color to #111 (black) on hover */
-        li a:hover {
-            background-color: #111;
+        .icon:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(3px 5px 2px rgb(60 60 60 / 0.4));
         }
         </style>
     </head>
@@ -66,12 +82,13 @@
     <body>
         <div class="nav">
             <ul>
-                <li><a href="../index.html">Main</a></li>
+                <li style="float:left"><a href="../index.html"><img class="icon" src="../assets/Final_Logo.svg" width="auto" height="70%"></a></li>
                 <li><a href="../contact/index.html">Contact Me</a></li>
                 <li><a href="../credits/index.html">Credits</a></li>
                 <li><a href="../works/index.html">My Works</a></li>
               </ul>
         </div>
+
         <div class="main">
             <img class="picture" src="./izzyr.jpg">
             <div class="texts">
