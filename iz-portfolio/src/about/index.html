@@ -1,9 +1,89 @@
 <html>
     <head>
-
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/rat.webp" />
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+        @font-face {
+            font-family: TitleFont;
+            src: url(../assets/LT-Funk.otf);
+        }
+        body{
+            background-color: #2a4d3d;
+            background-image: url("../assets/camobg.png");
+            margin: 0px;
+            position: relative;
+            overflow: hidden;
+        }
+        .main{
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .texts{
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+        }
+        .picture{
+            margin: 5%;
+            width: 35%;
+            min-width: 200px;
+            height: auto;
+        }
+        .brief{
+            margin:5%;
+        }
+        .title{
+            font-family: TitleFont;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        li {
+            float: left;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        /* Change the link color to #111 (black) on hover */
+        li a:hover {
+            background-color: #111;
+        }
+        </style>
     </head>
 
     <body>
-        <h1> about me temp </h1>
+        <div class="nav">
+            <ul>
+                <li><a href="../index.html">Main</a></li>
+                <li><a href="../contact/index.html">Contact Me</a></li>
+                <li><a href="../credits/index.html">Credits</a></li>
+                <li><a href="../works/index.html">My Works</a></li>
+              </ul>
+        </div>
+        <div class="main">
+            <img class="picture" src="./izzyr.jpg">
+            <div class="texts">
+                <div class="brief">
+                    <h1 class="title"> Hi, I'm Izzy Reghenzani </h1>
+                </div>
+                <div class="cv">
+                    <h1> CV </h1>
+                </div>
+            </div>
+            
+        </div>
+        
     </body>
 </html>
