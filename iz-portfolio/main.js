@@ -75,7 +75,7 @@ const plane = new THREE.PlaneGeometry(60, 20, 120, 40)
 const planeMaterial = new THREE.MeshPhongMaterial({
   shininess: 10,
   // color: 0x99bbff,
-  color: 0x66BB66,
+  color: 0x88BB66,
   side: THREE.BackSide,
   flatShading: true,
   alphaTest: 0.1,
